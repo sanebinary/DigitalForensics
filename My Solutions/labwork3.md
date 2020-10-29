@@ -90,3 +90,40 @@ The threshold obtained, according to opencv respectively were; 120, 101, 140.
 For the first image, the result was very close with one that obtained previously. **Forme3**, however was quite different.
 
 **II. Morphological Transformation**
+
+**1. Text extraction:**
+
+The cadastre1.png ![cadastre1.png](../SHARED_DigitalForensics/Labworks/LabWork_3/cadastre1.png) image is part of a 19th Century Paris cadastre map that was digitized:
+- Suggest a method to obtain a binary image containing only the text as far as possible.
+- Note: the original image is a color image, you will take care to convert it to grayscale before doing your processing .
+
+**Solution:**
+
+The code for this section is at: **text_extraction.py**
+
+- First we need to apply a correct threshold value. The image does not have a high level of fluctuation so I will apply the Otsu's method. I consider the background as noise and the text is our focused object so at this step, the opening method is used.
+  
+Here is the result:
+![text_extract](text_extract_open.png)
+
+**2. Extraction of objects**
+
+The cadastre2.png ![cadastre2.png](../SHARED_DigitalForensics/Labworks/LabWork_3/cadastre2.png) image represents the housing plots of a digitalized 19th Century cadastre map of Paris.
+
+-Suggest a method to obtain a binary image containing only the thickest walls.
+
+Note: the original image is a color image, you will take care to convert it to grayscale before doing your processing.
+
+-How do I get only the thinnest walls?
+
+**Solution**
+
+- The code for this section is at **object_extraction.py**:
+  
+In dilation, a pixel is '1' if at least one pixel under the kernel is '1'. So it increases the white region in the image or size of foreground object increases. So I choose a large kernel value for showing the thickest walls. The thin walls are considered as noise.
+
+Result:
+![thickest](./thickest_extract.png)
+
+To get the thinnest wall, I use blackhat technique
+![thinnest](./thinnest_extract.png)
