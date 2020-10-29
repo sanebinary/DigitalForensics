@@ -52,3 +52,14 @@ The way I am going to choose the threshold is using Histogram Peak Technique. I 
 - House8: 100
 - Woman: 60
 - Forme3: 80
+
+**II. Morphological Transformation**
+1. Text extraction:
+
+The cadastre1.png image is part of a 19th Century Paris cadastre map that was digitized:
+- Suggest a method to obtain a binary image containing only the text as far as possible.
+- Note: the original image is a color image, you will take care to convert it to grayscale before doing your processing.
+
+**Solution:**
+
+The code for this part is at **text_extraction.py**.
