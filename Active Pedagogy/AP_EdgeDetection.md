@@ -50,6 +50,52 @@ $$ \space \theta = tan^{-1} * (\frac{\partial f}{\partial x} / \frac{\partial f}
 Each estimation is performed in a small area of the image and once all regions have been calculated, we need to keep replicating this procedure. Variations have been produced on the basis of this approach to increase the efficacy of detections, minimizing the amount of workloads.
 
 
-### 2.Sobel operator
+### 2. Sobel operator
 
-One of the most common used operator is the Sober operator, invented by Irwin Sobel andGary Feldman, it uses two 3x3 matrix kernel each for x and y direction to calculate theapproximation of the derivative of an image
+The Sober operator, invented by Irwin Sobel and Gary Feldman, uses two 3x3 matrix each for x and y direction to calculate derivative of an image. By placing the gradient matrix over each pixel of an image, it is possible to find the amount of differences. 
+
+![Sober](SoberOperator.png)
+
+By putting the gradient matrix over each pixel of an image, the point is to find the number of differences. It isn't the best options, but since measurement can be performed easily, it can also be a very helpful solution.
+
+### 3. Canny edge detection
+
+The Canny edge detector, invented by John F. Canny in 1986, is an operator that uses a multi-stage algorithm to classify edges. The method can usually be broken down into 5 key steps: 
+
+1.  Smoothing: Smooth the image with a Gaussian filter with spread σ
+2.  Gradient: Compute gradient magnitude and direction at each pixel of the smoothed image
+3.  Thresholding: Threshold the gradient magnitude image such that strong edges are kept and noise is suppressed
+4.  Non-maximum suppression (thinning): Zero out all pixels that are not the maximum along the direction of the gradient (look at 1 pixel on each side)
+5.  Tracing edges: Trace high-magnitude contours and keep only pixels along these contours, so weak little segments go away
+
+
+### 4. Practical Code
+
+```python
+import sys
+import numpy as np
+import cv2
+from matplotlib import pyplot as plt
+
+img = cv2.imread("../SHARED_DigitalForensics/Labworks/LabWork_2/susie.png", 0)
+
+laplacian = cv2.Laplacian(img,cv2.CV_64F)
+sobelx = cv2.Sobel(img,cv2.CV_64F,1,0,ksize=5)
+sobely = cv2.Sobel(img,cv2.CV_64F,0,1,ksize=5)
+canny = cv2.Canny(img, 100, 200)
+
+plt.subplot(2,2,1),plt.imshow(img,cmap = 'gray')
+plt.title('Original'), plt.xticks([]), plt.yticks([])
+plt.subplot(2,2,2),plt.imshow(laplacian,cmap = 'gray')
+plt.title('Laplacian'), plt.xticks([]), plt.yticks([])
+plt.subplot(2,2,3),plt.imshow(sobelx,cmap = 'gray')
+plt.title('Sobel X'), plt.xticks([]), plt.yticks([])
+plt.subplot(2,2,4),plt.imshow(sobely,cmap = 'gray')
+plt.title('Sobel Y'), plt.xticks([]), plt.yticks([])
+
+original = cv.imread()
+
+plt.show()
+```
+
+### 5.Results
